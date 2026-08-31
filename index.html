@@ -8,17 +8,50 @@
 </head>
 
 <body>
-    <h1>Full Stack Learning Dashboard</h1>
-    <p>This is my first project in the full-stack roadmap.</p>
-    <h1>My Learning Goals</h1>
-    <ul>
-        <li>Learn HTML and CSS</li>
-        <li>Master JavaScript</li>
-        <li>Understand React</li>
-        <li>Build a full-stack application</li>
-    </ul>
+    <header>
+        <h1>Full Stack Learning Dashboard</h1>
+        <p>Track my progress through the full-stack roadmap.</p>
+        <nav>
+            <a href="#goals">Goals</a>
+            <a href="#progress">Progress</a>
+            <a href="#upcoming">Upcoming</a>
+        </nav>  
+    </header>
 
-    <button id="helloButton">Click me</button>
+    <main>
+        <section id="goals">
+            <h2>My Learning Goals</h2>
+
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+                <li>Cloud</li>
+            </ul>
+        </section>
+
+        <section id="progress">
+            <h2>Current Progress</h2>
+            <p>I am currently learning HTML fundamentals.</p>
+
+            <button id="helloButton">Check Progress</button>
+        </section>
+
+        <section id="upcoming">
+            <ol>
+                <li>Css layout</li>
+                <li>JavaScript DOM</li>
+                <li>React basics</li>
+                <li>Node Backend Development</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>Full Stack Learning Project</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
