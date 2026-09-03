@@ -85,7 +85,16 @@ footer {
     }
 
     nav{
-        flex-direction: column
+        flex-direction: column;
     }
+}
 
+.completed {
+    background-color: #e8f5e9;
+    border-color: #4caf50;
+    button {
+        background-color: #4caf50;
+        color: white;
+        border-radius: 4px;
+    }
 }
