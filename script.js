@@ -31,16 +31,8 @@ progressButton.addEventListener("click", function () {
     }
 });
 
-addGoalButton.addEventListener("click", function () {
-    const newGoalText = goalInput.value.trim();
-    if (newGoalText) {
-        const newGoal = document.createElement("li");
-        newGoal.textContent = newGoalText;
-        document.getElementById("goal-list").appendChild(newGoal);
-        goalInput.value = "";
-
-        newGoal.addEventListener("click", toggleGoal);
-    }
+goalList.querySelectorAll("li").forEach(function(goal) {
+    addRemoveButton(goal);
 });
 
 goalForm.addEventListener("submit", function (event) {
@@ -49,17 +41,11 @@ goalForm.addEventListener("submit", function (event) {
     if (newGoalText) {
         const newGoal = document.createElement("li");
         newGoal.textContent = newGoalText;
-        document.getElementById("goal-list").appendChild(newGoal);
+        addRemoveButton(newGoal);
+        goalList.appendChild(newGoal);
         goalInput.value = "";
-        // newGoal.addEventListener("click", toggleGoal);
     }
-    console.log(goalList);
 })
-
-// const goals = goalsSection.querySelectorAll("li");
-// goals.forEach(function (goal) {
-//     goal.addEventListener("click", toggleGoal);
-// });
 
 goalList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
@@ -76,4 +62,19 @@ function toggleGoal(event){
 
 function calculateProgress(completed, total) {
     return (completed / total) * 100;
+}
+
+function addRemoveButton(goal){
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-goal");
+    deleteButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        goal.remove();
+        const completed = goalsSection.querySelectorAll(".goal-completed").length;
+        const total = goalsSection.querySelectorAll("li").length;
+        progressStatus.textContent = `Goals completed: ${Math.round(calculateProgress(completed, total))}%`;
+    });
+
+    goal.appendChild(deleteButton);
 }
