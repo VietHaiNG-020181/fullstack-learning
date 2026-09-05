@@ -73,6 +73,12 @@ footer {
     border-radius: 8px;
 }
 
+#goal-form {
+    display: flex;
+    width: 100%;
+    gap: 2px
+}
+
 @media (max-width: 600px) {
 
     header {
