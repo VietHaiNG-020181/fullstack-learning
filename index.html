@@ -27,7 +27,7 @@
         <section id="goals">
             <h2>My Learning Goals</h2>
 
-            <ul>
+            <ul id="goal-list">
                 <li>HTML</li>
                 <li>CSS</li>
                 <li>JavaScript</li>
@@ -35,13 +35,18 @@
                 <li>Node.js</li>
                 <li>Cloud</li>
             </ul>
+            
+            <form id="goal-form">
+                <input type="text" id="goal-input" placeholder="Add a new goal">
+                <button type="submit" id="add-goal-button">Add Goal</button>
+            </form>
         </section>
 
         <section id="progress">
             <h2>Current Progress</h2>
             <p id="progress-paragraph">I am currently learning HTML fundamentals.</p>
-
-            <button id="helloButton">Check Progress</button>
+            <p id="goal-progress">Goals completed: 0%</p>
+            <button id="progress-button">Check Progress</button>
         </section>
 
         <section id="upcoming">
