@@ -9,6 +9,13 @@ const goalInput = document.getElementById("goal-input");
 const addGoalButton = document.getElementById("add-goal-button");
 const goalList = document.getElementById("goal-list");
 
+// Objects
+const goals = [
+    {text: "Learn React", completed: true, category: "Frontend",},
+    {text: "Learn Node.js", completed: false, category: "Backend",},
+    {text: "Learn Cloud", completed: false, category: "DevOps",}
+]
+
 progressButton.addEventListener("click", function () {
     progressSection.classList.toggle("completed");
     
@@ -55,9 +62,7 @@ goalList.addEventListener("click", function (event) {
 
 function toggleGoal(event){
     event.target.classList.toggle("goal-completed");
-    const completed = goalsSection.querySelectorAll(".goal-completed").length;
-    const total = goalsSection.querySelectorAll("li").length;
-    progressStatus.textContent = `Goals completed: ${Math.round(calculateProgress(completed, total))}%`;
+    updateProgressStatus();
 }
 
 function calculateProgress(completed, total) {
@@ -71,10 +76,35 @@ function addRemoveButton(goal){
     deleteButton.addEventListener("click", function (event) {
         event.stopPropagation();
         goal.remove();
-        const completed = goalsSection.querySelectorAll(".goal-completed").length;
-        const total = goalsSection.querySelectorAll("li").length;
-        progressStatus.textContent = `Goals completed: ${Math.round(calculateProgress(completed, total))}%`;
+        updateProgressStatus();
     });
 
     goal.appendChild(deleteButton);
 }
+
+function updateProgressStatus() {
+    const completed = goalsSection.querySelectorAll(".goal-completed").length;
+    const total = goalsSection.querySelectorAll("li").length;
+    progressStatus.textContent = `Goals completed: ${Math.round(calculateProgress(completed, total))}%`;
+}
+
+function renderGoals(){
+    goals.forEach(function(goal) {
+        // HTML element creation
+        const newli = document.createElement("li");
+        newli.textContent = goal.text;
+        addRemoveButton(newli);
+
+        //CSS class addition
+        if (goal.completed) {
+            newli.classList.add("goal-completed");
+        }
+
+        goalList.appendChild(newli);
+        updateProgressStatus();
+    });
+}
+
+renderGoals();
+
+
