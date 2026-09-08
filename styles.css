@@ -76,7 +76,27 @@ footer {
 #goal-form {
     display: flex;
     width: 100%;
-    gap: 2px
+    gap: 2px;
+    padding: 8px;
+    justify-content: space-between;
+}
+
+#goal-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 8px;
+    
+}
+
+#goal-list li {
+    min-width: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 @media (max-width: 600px) {
