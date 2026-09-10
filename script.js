@@ -45,20 +45,13 @@ goalList.querySelectorAll("li").forEach(function(goal) {
 
 goalForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    const newGoalElement = createGoal(goalInput.value.trim(), false, goalCategory.value);
-    if (newGoalElement) {
-        const newGoal = document.createElement("li");
-        newGoal.textContent = newGoalElement.text; 
-        addRemoveButton(newGoal);
-        goalList.appendChild(newGoal);
+    if (goalInput.value.trim() !== "") {
+        const newGoalElement = createGoal(goalInput.value.trim(), false, goalCategory.value);
         goals.push(newGoalElement);
+        renderGoals();
         goalInput.value = "";
     }
-
-    updateProgressStatus();
-    console.log(goals);
-
-})
+});
 
 goalList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
@@ -69,6 +62,11 @@ goalList.addEventListener("click", function (event) {
 function toggleGoal(event){
     event.target.classList.toggle("goal-completed");
     updateProgressStatus();
+    goals.forEach(function(goal) {
+        if (goal.text === event.target.textContent.replace("Delete", "").trim()) {
+            goal.completed = !goal.completed;
+        }
+    });
 }
 
 function calculateProgress(completed, total) {
@@ -82,6 +80,11 @@ function addRemoveButton(goal){
     deleteButton.addEventListener("click", function (event) {
         event.stopPropagation();
         goal.remove();
+        goals.forEach(function(goalObj, index) {
+            if (goalObj.text === goal.textContent.replace("Delete", "").trim()) {
+                goals.splice(index, 1);
+            }
+        });
         updateProgressStatus();
     });
 
@@ -92,9 +95,11 @@ function updateProgressStatus() {
     const completed = goalsSection.querySelectorAll(".goal-completed").length;
     const total = goalsSection.querySelectorAll("li").length;
     progressStatus.textContent = `Goals completed: ${Math.round(calculateProgress(completed, total))}%`;
+    console.log(goals);
 }
 
 function renderGoals(){
+    goalList.innerHTML = "";
     goals.forEach(function(goal) {
         // HTML element creation
         const newli = document.createElement("li");
@@ -116,8 +121,4 @@ function createGoal(text, completed = false, category = "N/A") {
 }
 
 renderGoals();
-
-const newGoal = createGoal("Learn React");
-goals.push(newGoal);
-console.log(goals);
 
