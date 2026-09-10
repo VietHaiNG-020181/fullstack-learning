@@ -27,17 +27,15 @@
         <section id="goals">
             <h2>My Learning Goals</h2>
 
-            <ul id="goal-list">
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>React</li>
-                <li>Node.js</li>
-                <li>Cloud</li>
-            </ul>
+            <ul id="goal-list"></ul>
             
             <form id="goal-form">
                 <input type="text" id="goal-input" placeholder="Add a new goal">
+                <select id="goal-category">
+                    <option value="Frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                    <option value="DevOps">DevOps</option>
+                </select>
                 <button type="submit" id="add-goal-button">Add Goal</button>
             </form>
         </section>

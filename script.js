@@ -6,12 +6,13 @@ const progressStatus = document.getElementById("goal-progress");
 const goalsSection = document.getElementById("goals");
 const goalForm = document.getElementById("goal-form");
 const goalInput = document.getElementById("goal-input");
+const goalCategory = document.getElementById("goal-category");
 const addGoalButton = document.getElementById("add-goal-button");
 const goalList = document.getElementById("goal-list");
 
 // Objects
 const goals = [
-    {text: "Learn React", completed: true, category: "Frontend",},
+    {text: "Learn React", completed: false, category: "Frontend",},
     {text: "Learn Node.js", completed: false, category: "Backend",},
     {text: "Learn Cloud", completed: false, category: "DevOps",}
 ]
@@ -44,14 +45,19 @@ goalList.querySelectorAll("li").forEach(function(goal) {
 
 goalForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    const newGoalText = goalInput.value.trim();
-    if (newGoalText) {
+    const newGoalElement = createGoal(goalInput.value.trim(), false, goalCategory.value);
+    if (newGoalElement) {
         const newGoal = document.createElement("li");
-        newGoal.textContent = newGoalText;
+        newGoal.textContent = newGoalElement.text; 
         addRemoveButton(newGoal);
         goalList.appendChild(newGoal);
+        goals.push(newGoalElement);
         goalInput.value = "";
     }
+
+    updateProgressStatus();
+    console.log(goals);
+
 })
 
 goalList.addEventListener("click", function (event) {
@@ -101,10 +107,17 @@ function renderGoals(){
         }
 
         goalList.appendChild(newli);
-        updateProgressStatus();
     });
+    updateProgressStatus();
+}
+
+function createGoal(text, completed = false, category = "N/A") {
+    return {text: text, completed: completed, category: category};
 }
 
 renderGoals();
 
+const newGoal = createGoal("Learn React");
+goals.push(newGoal);
+console.log(goals);
 
