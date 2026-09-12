@@ -62,13 +62,12 @@ goalList.addEventListener("click", function (event) {
 });
 
 function toggleGoal(event){
-    event.target.classList.toggle("goal-completed");
-    updateProgressStatus();
     goals.forEach(function(goal) {
         if(goal.id === parseInt(event.target.dataset.id)) {
             goal.completed = !goal.completed;
         }
     });
+    renderGoals();
 }
 
 function calculateProgress(completed, total) {
@@ -81,15 +80,15 @@ function addRemoveButton(goal){
     deleteButton.classList.add("delete-goal");
     deleteButton.addEventListener("click", function (event) {
         event.stopPropagation();
-        goal.remove();
-        goals.forEach(function(goalObj, index) {
-            if (goalObj.id === parseInt(goal.dataset.id)) {
-                goals.splice(index, 1);
-            }
-        });
-        updateProgressStatus();
+        idToCheck = parseInt(goal.dataset.id);
+        const index = goals.findIndex(function(goal){
+            return goal.id === idToCheck;
+        })
+        if(index !== -1) {
+            goals.splice(index, 1);
+        }
+        renderGoals();
     });
-
     goal.appendChild(deleteButton);
 }
 
