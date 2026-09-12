@@ -12,10 +12,12 @@ const goalList = document.getElementById("goal-list");
 
 // Objects
 const goals = [
-    {text: "Learn React", completed: false, category: "Frontend",},
-    {text: "Learn Node.js", completed: false, category: "Backend",},
-    {text: "Learn Cloud", completed: false, category: "DevOps",}
+    {id: 1, text: "Learn React", completed: false, category: "Frontend",},
+    {id: 2, text: "Learn Node.js", completed: false, category: "Backend",},
+    {id: 3, text: "Learn Cloud", completed: false, category: "DevOps",}
 ]
+
+let goalID = 4;
 
 progressButton.addEventListener("click", function () {
     progressSection.classList.toggle("completed");
@@ -63,7 +65,7 @@ function toggleGoal(event){
     event.target.classList.toggle("goal-completed");
     updateProgressStatus();
     goals.forEach(function(goal) {
-        if (goal.text === event.target.textContent.replace("Delete", "").trim()) {
+        if(goal.id === parseInt(event.target.dataset.id)) {
             goal.completed = !goal.completed;
         }
     });
@@ -81,7 +83,7 @@ function addRemoveButton(goal){
         event.stopPropagation();
         goal.remove();
         goals.forEach(function(goalObj, index) {
-            if (goalObj.text === goal.textContent.replace("Delete", "").trim()) {
+            if (goalObj.id === parseInt(goal.dataset.id)) {
                 goals.splice(index, 1);
             }
         });
@@ -104,6 +106,7 @@ function renderGoals(){
         // HTML element creation
         const newli = document.createElement("li");
         newli.textContent = goal.text;
+        newli.dataset.id = goal.id;
         addRemoveButton(newli);
 
         //CSS class addition
@@ -116,8 +119,14 @@ function renderGoals(){
     updateProgressStatus();
 }
 
+function getID() {
+    const id = goalID;
+    goalID++;
+    return id;
+}
+
 function createGoal(text, completed = false, category = "N/A") {
-    return {text: text, completed: completed, category: category};
+    return {id: getID(), text: text, completed: completed, category: category};
 }
 
 renderGoals();
