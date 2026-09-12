@@ -80,7 +80,7 @@ function addRemoveButton(goal){
     deleteButton.classList.add("delete-goal");
     deleteButton.addEventListener("click", function (event) {
         event.stopPropagation();
-        idToCheck = parseInt(goal.dataset.id);
+        const idToCheck = parseInt(goal.dataset.id);
         const index = goals.findIndex(function(goal){
             return goal.id === idToCheck;
         })
@@ -93,8 +93,14 @@ function addRemoveButton(goal){
 }
 
 function updateProgressStatus() {
-    const completed = goalsSection.querySelectorAll(".goal-completed").length;
-    const total = goalsSection.querySelectorAll("li").length;
+    const completed = goals.filter(function(goal) {
+        return goal.completed;
+    }).length;
+    const total = goals.length;
+    if (total === 0) {
+        progressStatus.textContent = `Goals completed: $0%`;
+        return;
+    }
     progressStatus.textContent = `Goals completed: ${Math.round(calculateProgress(completed, total))}%`;
     console.log(goals);
 }
