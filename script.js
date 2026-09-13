@@ -3,18 +3,13 @@ const progressSection = document.getElementById("progress");
 const progressParagraph = document.getElementById("progress-paragraph");
 const progressStatus = document.getElementById("goal-progress");
 
-const goalsSection = document.getElementById("goals");
 const goalForm = document.getElementById("goal-form");
 const goalInput = document.getElementById("goal-input");
 const goalCategory = document.getElementById("goal-category");
 const goalList = document.getElementById("goal-list");
 
 // Objects
-const goals = [
-    {id: 1, text: "Learn React", completed: false, category: "Frontend",},
-    {id: 2, text: "Learn Node.js", completed: false, category: "Backend",},
-    {id: 3, text: "Learn Cloud", completed: false, category: "DevOps",}
-]
+let goals = [];
 
 let goalID = 4;
 
@@ -45,6 +40,7 @@ goalForm.addEventListener("submit", function (event) {
     if (goalInput.value.trim() !== "") {
         const newGoalElement = createGoal(goalInput.value.trim(), false, goalCategory.value);
         goals.push(newGoalElement);
+        saveGoals();
         renderGoals();
         goalInput.value = "";
     }
@@ -62,6 +58,7 @@ function toggleGoal(event){
             goal.completed = !goal.completed;
         }
     });
+    saveGoals();
     renderGoals();
 }
 
@@ -82,6 +79,7 @@ function addRemoveButton(goal){
         if(index !== -1) {
             goals.splice(index, 1);
         }
+        saveGoals();
         renderGoals();
     });
     goal.appendChild(deleteButton);
@@ -93,7 +91,7 @@ function updateProgressStatus() {
     }).length;
     const total = goals.length;
     if (total === 0) {
-        progressStatus.textContent = `Goals completed: $0%`;
+        progressStatus.textContent = `Goals completed: 0%`;
         return;
     }
     progressStatus.textContent = `Goals completed: ${Math.round(calculateProgress(completed, total))}%`;
@@ -129,5 +127,29 @@ function createGoal(text, completed = false, category = "N/A") {
     return {id: getID(), text: text, completed: completed, category: category};
 }
 
+function saveGoals() {
+    localStorage.setItem("goals", JSON.stringify(goals));
+    localStorage.setItem("goalID", goalID.toString());
+}
+
+function loadGoals() {
+    const storedGoals = localStorage.getItem("goals");
+    const storedGoalID = localStorage.getItem("goalID");
+    if(storedGoals) {
+        goals = JSON.parse(storedGoals);
+    } else {
+        goals = [
+            {id: 1, text: "Learn React", completed: false, category: "Frontend",},
+            {id: 2, text: "Learn Node.js", completed: false, category: "Backend",},
+            {id: 3, text: "Learn Cloud", completed: false, category: "DevOps",}
+        ];
+    }
+    if(storedGoalID) {
+        goalID = parseInt(storedGoalID);
+    } else {
+        goalID = 4;
+    }
+}
+loadGoals();
 renderGoals();
 
