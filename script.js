@@ -7,7 +7,6 @@ const goalsSection = document.getElementById("goals");
 const goalForm = document.getElementById("goal-form");
 const goalInput = document.getElementById("goal-input");
 const goalCategory = document.getElementById("goal-category");
-const addGoalButton = document.getElementById("add-goal-button");
 const goalList = document.getElementById("goal-list");
 
 // Objects
@@ -39,10 +38,6 @@ progressButton.addEventListener("click", function () {
             message.remove();
         }
     }
-});
-
-goalList.querySelectorAll("li").forEach(function(goal) {
-    addRemoveButton(goal);
 });
 
 goalForm.addEventListener("submit", function (event) {
