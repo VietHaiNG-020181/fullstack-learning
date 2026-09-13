@@ -53,11 +53,12 @@ goalList.addEventListener("click", function (event) {
 });
 
 function toggleGoal(event){
-    goals.forEach(function(goal) {
-        if(goal.id === parseInt(event.target.dataset.id)) {
-            goal.completed = !goal.completed;
-        }
+    goal = goals.find(function(goal) {
+        return goal.id === parseInt(event.target.dataset.id);
     });
+    if(goal) {
+        goal.completed = !goal.completed;
+    }
     saveGoals();
     renderGoals();
 }
