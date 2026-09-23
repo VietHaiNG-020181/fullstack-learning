@@ -48,13 +48,13 @@ goalForm.addEventListener("submit", function (event) {
 
 goalList.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
-        toggleGoal(event);
+        toggleGoal(parseInt(event.target.dataset.id));
     }
 });
 
-function toggleGoal(event){
+function toggleGoal(id){
     const goal = goals.find(function(goal) {
-        return goal.id === parseInt(event.target.dataset.id);
+        return goal.id === id;
     });
     if(goal) {
         goal.completed = !goal.completed;
