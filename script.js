@@ -38,7 +38,7 @@ progressButton.addEventListener("click", function () {
 goalForm.addEventListener("submit", function (event) {
     event.preventDefault();
     if (goalInput.value.trim() !== "") {
-        const newGoalElement = createGoal(goalInput.value.trim(), false, goalCategory.value);
+        const newGoalElement = createGoal(goalInput.value.trim(), goalCategory.value);
         goals.push(newGoalElement);
         saveGoals();
         renderGoals();
@@ -124,8 +124,8 @@ function getID() {
     return id;
 }
 
-function createGoal(text, completed = false, category = "N/A") {
-    return {id: getID(), text: text, completed: completed, category: category};
+function createGoal(text, category = "N/A") {
+    return {id: getID(), text: text, completed: false, category: category};
 }
 
 function saveGoals() {
