@@ -53,7 +53,7 @@ goalList.addEventListener("click", function (event) {
 });
 
 function toggleGoal(event){
-    goal = goals.find(function(goal) {
+    const goal = goals.find(function(goal) {
         return goal.id === parseInt(event.target.dataset.id);
     });
     if(goal) {
