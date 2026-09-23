@@ -73,13 +73,7 @@ function addRemoveButton(goal){
     deleteButton.classList.add("delete-goal");
     deleteButton.addEventListener("click", function (event) {
         event.stopPropagation();
-        const idToCheck = parseInt(goal.dataset.id);
-        const index = goals.findIndex(function(goal){
-            return goal.id === idToCheck;
-        })
-        if(index !== -1) {
-            goals.splice(index, 1);
-        }
+        deleteGoal(parseInt(goal.dataset.id));
         saveGoals();
         renderGoals();
     });
@@ -127,6 +121,16 @@ function getID() {
 function createGoal(text, category = "N/A") {
     return {id: getID(), text: text, completed: false, category: category};
 }
+
+function deleteGoal(id) {
+    const index = goals.findIndex(function(goal){
+        return goal.id === id;
+    });
+    if(index !== -1) {
+        goals.splice(index, 1);
+    };
+}
+
 
 function saveGoals() {
     localStorage.setItem("goals", JSON.stringify(goals));
